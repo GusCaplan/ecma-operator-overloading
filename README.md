@@ -55,17 +55,12 @@ console.log(7 + x) // 14;
   function Overloader(x) {
     this.x = x;
   }
-  Object.defineProperty(Overloader.prototype, left +, (y) => this.x + y);
-  // or
-  Object.defineOverload(Overloader.prototype, +, left, (y) => this.x + y);
+  // perhaps
+  Object.defineProperty(Overloader.prototype, +, { value: (y) => this.x + y });
+  // or maybe
+  Object.defineOverload(Overloader.prototype, +, (y) => this.x + y);
   ```
 
 ----
 
 #### Current issues with this proposal:
-- What happens when one uses a proxy with a class which overloads
-  ```js
-  const x = new Overloader(7);
-  const y = new Proxy(x, handler);
-  console.log(y + 7) // ???
-  ```
